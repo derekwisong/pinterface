@@ -9,8 +9,10 @@ Useful abstractions for working with:
 
 # Installation
 
+Install the latest version of `pinterface` with pip:
+
 ```
-pip install https://github.com/derekwisong/pinterface.git
+pip install git+https://github.com/derekwisong/pinterface.git
 ```
 
 # Examples
