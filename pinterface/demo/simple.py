@@ -1,4 +1,5 @@
 from threading import Event
+from typing import Callable
 
 import board
 import digitalio
@@ -9,28 +10,17 @@ from gpiozero import RotaryEncoder, Button
 from tenacity import retry
 from tenacity.stop import stop_after_delay
 
-red = 0
-green = 0
-blue = 0
-
 
 @retry(stop=stop_after_delay(10))
-def retry_call(device_type, *args, **kwargs):
-    # retry because GPIO fails adding edge detection randomly
-    return device_type(*args, **kwargs)
+def retry_call(callable: Callable, *args, **kwargs):
+    """Retry a call."""
+    return callable(*args, **kwargs)
 
 
 def twist_knob(knob: RotaryEncoder, label):
-    global red, green, blue
+    # convert the knobs step counter into a 0-255 value
     val = min(knob.steps + 128, 255)
-    print(
-        f"Knob {label} twisted -- steps={knob.steps} value={knob.value} val={val}")
-    if label == "A":
-        red = val
-    elif label == "B":
-        green = val
-    elif label == "C":
-        blue = val
+    print(f"Knob {label} steps={knob.steps} value={knob.value} val={val}")
 
 
 def press_knob(label):
@@ -83,10 +73,10 @@ if __name__ == "__main__":
     knob_a.when_rotated = lambda x: twist_knob(knob_a, "A")
     knob_b.when_rotated = lambda x: twist_knob(knob_b, "B")
     knob_c.when_rotated = lambda x: twist_knob(knob_c, "C")
-    
+
     # can implement other callbacks...
     # knob_a.when_rotated_clockwise = fn()
-    # knob_a.when_rotated_counter_clockwise = fn()    
+    # knob_a.when_rotated_counter_clockwise = fn()
 
     knob_a_button.when_released = lambda x: press_knob("A")
     knob_b_button.when_released = lambda x: press_knob("B")
@@ -113,8 +103,7 @@ if __name__ == "__main__":
 
     try:
         while not event.wait(timeout=0.5):
-            # would like to try updating the screen here with the
-            # global values in red, green, and blue
+            # would like to try updating the screen 
             pass
     except KeyboardInterrupt:
         exit(0)
