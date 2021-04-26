@@ -15,7 +15,7 @@ blue = 0
 
 
 @retry(stop=stop_after_delay(10))
-def create_device(device_type, *args, **kwargs):
+def retry_call(device_type, *args, **kwargs):
     # retry because GPIO fails adding edge detection randomly
     return device_type(*args, **kwargs)
 
@@ -52,21 +52,21 @@ if __name__ == "__main__":
 
     # knobs will track a step counter from (-128, 128)
     # twisting clockwise increments counter, counter-clockwise decrements
-    knob_a = create_device(RotaryEncoder, 5, 12, max_steps=128)   # month
-    knob_b = create_device(RotaryEncoder, 17, 13, max_steps=128)  # day
-    knob_c = create_device(RotaryEncoder, 22, 16, max_steps=128)  # year
+    knob_a = retry_call(RotaryEncoder, 5, 12, max_steps=128)   # month
+    knob_b = retry_call(RotaryEncoder, 17, 13, max_steps=128)  # day
+    knob_c = retry_call(RotaryEncoder, 22, 16, max_steps=128)  # year
 
     # buttons on the knobs
-    knob_a_button = create_device(Button, 6, hold_time=3)
-    knob_b_button = create_device(Button, 27, hold_time=3)
-    knob_c_button = create_device(Button, 23, hold_time=3)
+    knob_a_button = retry_call(Button, 6, hold_time=3)
+    knob_b_button = retry_call(Button, 27, hold_time=3)
+    knob_c_button = retry_call(Button, 23, hold_time=3)
 
     # pushbuttons
-    button_a = create_device(Button, 2)   # stop
-    button_b = create_device(Button, 20)  # play / pause
-    button_c = create_device(Button, 4)   # select
-    button_d = create_device(Button, 3)   # rewind
-    button_e = create_device(Button, 26)  # ffwd
+    button_a = retry_call(Button, 2)   # stop
+    button_b = retry_call(Button, 20)  # play / pause
+    button_c = retry_call(Button, 4)   # select
+    button_d = retry_call(Button, 3)   # rewind
+    button_e = retry_call(Button, 26)  # ffwd
 
     display = ST7735R(board.SPI(),
                       rotation=90,
