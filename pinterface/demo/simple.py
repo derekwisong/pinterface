@@ -70,11 +70,12 @@ if __name__ == "__main__":
     print(f"Setting display to black")
     display.fill(0)
 
+    # add knob callbacks
     knob_a.when_rotated = lambda x: twist_knob(knob_a, "A")
     knob_b.when_rotated = lambda x: twist_knob(knob_b, "B")
     knob_c.when_rotated = lambda x: twist_knob(knob_c, "C")
 
-    # can implement other callbacks...
+    # can implement other knob  callbacks...
     # knob_a.when_rotated_clockwise = fn()
     # knob_a.when_rotated_counter_clockwise = fn()
 
