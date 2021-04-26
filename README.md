@@ -1,11 +1,10 @@
 # Overview
 
-A Raspberry Pi physical interface toolkit.
+Kit for working with the the raspberry pi equipped with
 
-Useful abstractions for working with:
-
-- Rotary encoders
-- Buttons
+- 3 rotary encoders
+- 5 momentary buttons
+- 1 ST7735R screen
 
 # Installation
 
@@ -17,4 +16,10 @@ pip install git+https://github.com/derekwisong/pinterface.git
 
 # Examples
 
-See `pinterface/examples` for demonstrations of using `pinterface`.
+To test your inputs and outputs:
+
+```
+python -m pinterface.demo.simple
+```
+
+See `pinterface/demo` for demonstrations of using `pinterface`.

@@ -1,1 +1,0 @@
-"""Exaple usage of pinterface"""
