@@ -75,7 +75,7 @@ if __name__ == "__main__":
     knob_b.when_rotated = lambda x: twist_knob(knob_b, "B")
     knob_c.when_rotated = lambda x: twist_knob(knob_c, "C")
 
-    # can implement other knob  callbacks...
+    # can implement other knob callbacks...
     # knob_a.when_rotated_clockwise = fn()
     # knob_a.when_rotated_counter_clockwise = fn()
 
