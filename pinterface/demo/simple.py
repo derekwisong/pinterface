@@ -13,9 +13,11 @@ from tenacity.stop import stop_after_delay
 
 color = {"Red": 0, "Green": 0, "Blue": 0}
 
+
 def get_color():
     rgb = (color["Red"], color["Green"], color["Blue"])
     return color565(*rgb)
+
 
 @retry(stop=stop_after_delay(10))
 def retry_call(callable: Callable, *args, **kwargs):
@@ -99,13 +101,13 @@ if __name__ == "__main__":
 
     print(f"Initializing display")
     display = ST7735R(board.SPI(),
-                    rotation=90,
-                    width=128,
-                    height=160,
-                    cs=digitalio.DigitalInOut(board.CE0),
-                    dc=digitalio.DigitalInOut(board.D24),
-                    rst=digitalio.DigitalInOut(board.D25),
-                    baudrate=40000000)
+                      rotation=90,
+                      width=128,
+                      height=160,
+                      cs=digitalio.DigitalInOut(board.CE0),
+                      dc=digitalio.DigitalInOut(board.D24),
+                      rst=digitalio.DigitalInOut(board.D25),
+                      baudrate=40000000)
 
     display.fill(get_color())
 
